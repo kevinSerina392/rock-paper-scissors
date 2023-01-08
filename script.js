@@ -1,59 +1,60 @@
-let choices = ['Rock', 'Paper', 'Scissors'];
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
+
+let choices = ['rock', 'paper', 'scissors'];
 let playerPoints = 0;
 let computerPoints = 0;
+let computerChoice;
 
-function computerPlay() {
+const computerPlay = () => {
     let randomChoice = choices[Math.floor(Math.random() * choices.length)];
     return randomChoice;
-}
+};
 
-function playRound(playerSelection, computerSelection) {
-    let message;
-    // Tie
+const playerWin = () => {
+    playerPoints += 1;
+    console.log(
+        `Player: ${playerPoints}, Computer: ${computerPoints}\nCongratulations! You win the round!`
+    );
+};
+
+const computerWin = () => {
+    computerPoints += 1;
+    console.log(
+        `Player: ${playerPoints}, Computer: ${computerPoints}\nComputer has won the round!`
+    );
+};
+
+const playRound = (playerSelection, computerSelection) => {
+    // playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerPlay().toLowerCase();
+
     if (playerSelection === computerSelection) {
-        return 'The result is a tie. Please choose again!';
-        // Player win conditions
-    } else if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
-        playerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nCongratulations! You win the round!`;
-        return message;
-    } else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
-        playerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nCongratulations! You win the round!`;
-        return message;
+        console.log('The result is a tie. Please choose again!');
     } else if (
-        playerSelection === 'Scissors' &&
-        computerSelection === 'Paper'
+        (playerSelection === 'rock' && computerSelection === 'scissors') ||
+        (playerSelection === 'paper' && computerSelection === 'rock') ||
+        (playerSelection === 'scissors' && computerSelection === 'paper')
     ) {
-        playerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nCongratulations! You win the round!`;
-        return message;
-        // Computer win conditions
-    } else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
-        computerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nComputer has won the round!`;
-        return message;
+        playerWin();
     } else if (
-        playerSelection === 'Paper' &&
-        computerSelection === 'Scissors'
+        (computerSelection === 'rock' && playerSelection === 'scissors') ||
+        (computerSelection === 'paper' && playerSelection === 'rock') ||
+        (computerSelection === 'scissors' && computerSelection === 'paper')
     ) {
-        computerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nComputer has won the round!`;
-        return message;
-    } else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
-        computerPoints += 1;
-        message = `Player: ${playerSelection}, Computer: ${computerSelection}\nComputer has won the round!`;
-        return message;
+        computerWin();
     }
-}
+};
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt('Please choose between Rock/Paper/Scissors');
-        let computerChoice = computerPlay();
-        console.log(playRound(playerChoice, computerChoice));
-        console.log(`Player: ${playerPoints}, Computer: ${computerPoints}`);
-    }
-}
+rockButton.addEventListener('click', function () {
+    playRound(choices[0], computerChoice);
+});
 
-game();
+paperButton.addEventListener('click', function () {
+    playRound(choices[1], computerChoice);
+});
+
+scissorsButton.addEventListener('click', function () {
+    playRound(choices[2], computerChoice);
+});
