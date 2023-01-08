@@ -2,6 +2,18 @@ const rockButton = document.getElementById('rock');
 const paperButton = document.getElementById('paper');
 const scissorsButton = document.getElementById('scissors');
 
+// const container = document.getElementsByClassName('container');
+
+// Creating a div to display the results
+const displayResults = document.createElement('div');
+document.getElementById('content').appendChild(displayResults);
+
+// style the display div
+displayResults.innerHTML = '<h1>RESULTS</h1>';
+// displayResults.style.backgroundColor = 'red';
+displayResults.style.display = 'flex';
+displayResults.style.justifyContent = 'center';
+
 let choices = ['rock', 'paper', 'scissors'];
 let playerPoints = 0;
 let computerPoints = 0;
@@ -27,7 +39,6 @@ const computerWin = () => {
 };
 
 const playRound = (playerSelection, computerSelection) => {
-    // playerSelection = playerSelection.toLowerCase();
     computerSelection = computerPlay().toLowerCase();
 
     if (playerSelection === computerSelection) {
