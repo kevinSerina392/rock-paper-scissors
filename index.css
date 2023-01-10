@@ -1,6 +1,6 @@
 #container {
     display: flex;
-    align-items: stretch;
+    align-items: normal;
     justify-content: center;
 
     position: absolute;
@@ -13,10 +13,15 @@
 #content {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .buttons {
     display: flex;
     justify-content: space-between;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
 }
