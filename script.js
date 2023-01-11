@@ -2,15 +2,6 @@ const rockButton = document.getElementById('rock');
 const paperButton = document.getElementById('paper');
 const scissorsButton = document.getElementById('scissors');
 
-// Creating a div to display the results
-const displayResults = document.createElement('div');
-
-// style the display div
-displayResults.innerHTML = '<h1>SCORE</h1>';
-displayResults.style.display = 'flex';
-displayResults.style.justifyContent = 'center';
-document.getElementById('content').appendChild(displayResults);
-
 // Create and display a message when the round results in a tie
 const tieMessage = document.createElement('h1');
 // Styling tie message
@@ -44,10 +35,14 @@ const computerWin = () => {
     );
 };
 
+const tie = () => {
+    document.getElementById('msg').appendChild(tieMessage);
+};
+
 const playRound = (playerSelection, computerSelection) => {
     computerSelection = computerPlay().toLowerCase();
     if (playerSelection === computerSelection) {
-        document.getElementById('msg').appendChild(tieMessage);
+        tie();
     } else if (
         (playerSelection === 'rock' && computerSelection === 'scissors') ||
         (playerSelection === 'paper' && computerSelection === 'rock') ||
@@ -65,7 +60,6 @@ const playRound = (playerSelection, computerSelection) => {
 
 rockButton.addEventListener('click', function () {
     playRound(choices[0], computerChoice);
-    playerWinsRoundMessage.innerHTML = '';
 });
 
 paperButton.addEventListener('click', function () {
