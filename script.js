@@ -1,22 +1,23 @@
-const rockButton = document.getElementById('rock');
-const paperButton = document.getElementById('paper');
-const scissorsButton = document.getElementById('scissors');
+const rockButton = document.querySelector('.rock');
+const paperButton = document.querySelector('.paper');
+const scissorsButton = document.querySelector('.scissors');
 
-// Create and display a message when the round results in a tie
-const tieMessage = document.createElement('h1');
-// Styling tie message
-tieMessage.innerHTML = '<h3>The result is a tie. Please choose again!</h3>';
-
-// Create and display a message when the round results in a player win
-const playerWinsRoundMessage = document.createElement('h1');
-playerWinsRoundMessage.innerHTML = 'Congratulations! You win the round!';
-playerWinsRoundMessage.style.display = 'flex';
-playerWinsRoundMessage.style.alignItems = 'flex-end';
+const resultsDisplay = document.querySelector('.results');
 
 let choices = ['rock', 'paper', 'scissors'];
 let playerPoints = 0;
 let computerPoints = 0;
 let computerChoice;
+
+const message = document.querySelector('#msg');
+
+const playerScore = document.createElement('h1');
+playerScore.innerHTML = `Player: ${playerPoints}`;
+resultsDisplay.appendChild(playerScore);
+
+const pcScore = document.createElement('h1');
+pcScore.innerHTML = `Computer: ${computerPoints}`;
+resultsDisplay.appendChild(pcScore);
 
 const computerPlay = () => {
     let randomChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -24,19 +25,15 @@ const computerPlay = () => {
 };
 
 const playerWin = () => {
-    playerPoints += 1;
-    document.getElementById('msg').appendChild(playerWinsRoundMessage);
+    message.innerHTML = 'Congratulations! You won the round!';
 };
 
 const computerWin = () => {
-    computerPoints += 1;
-    console.log(
-        `Player: ${playerPoints}, Computer: ${computerPoints}\nComputer has won the round!`
-    );
+    message.innerHTML = 'Computer has won the round.';
 };
 
 const tie = () => {
-    document.getElementById('msg').appendChild(tieMessage);
+    message.innerHTML = 'Tie! Try again.';
 };
 
 const playRound = (playerSelection, computerSelection) => {
@@ -49,12 +46,14 @@ const playRound = (playerSelection, computerSelection) => {
         (playerSelection === 'scissors' && computerSelection === 'paper')
     ) {
         playerWin();
+        playerPoints += 1;
     } else if (
         (computerSelection === 'rock' && playerSelection === 'scissors') ||
         (computerSelection === 'paper' && playerSelection === 'rock') ||
         (computerSelection === 'scissors' && computerSelection === 'paper')
     ) {
         computerWin();
+        computerPoints += 1;
     }
 };
 
