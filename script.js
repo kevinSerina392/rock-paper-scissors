@@ -1,7 +1,6 @@
-const rockButton = document.querySelector('.rock');
-const paperButton = document.querySelector('.paper');
-const scissorsButton = document.querySelector('.scissors');
-
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
 const resultsDisplay = document.querySelector('.results');
 
 let choices = ['rock', 'paper', 'scissors'];
@@ -19,21 +18,43 @@ const pcScore = document.createElement('h1');
 pcScore.innerHTML = `Computer: ${computerPoints}`;
 resultsDisplay.appendChild(pcScore);
 
+const disableButtons = () => {
+    document.getElementById('rock').disabled = true;
+    document.getElementById('paper').disabled = true;
+    document.getElementById('scissors').disabled = true;
+};
+
 const computerPlay = () => {
     let randomChoice = choices[Math.floor(Math.random() * choices.length)];
     return randomChoice;
 };
 
 const playerWin = () => {
-    message.innerHTML = 'Congratulations! You won the round!';
+    message.innerHTML = 'Nice! You won the round!';
+    playerPoints += 1;
+    playerScore.innerHTML = `Player: ${playerPoints}`;
 };
 
 const computerWin = () => {
-    message.innerHTML = 'Computer has won the round.';
+    message.innerHTML = 'Computer has won the round!';
+    computerPoints += 1;
+    pcScore.innerHTML = `Computer: ${computerPoints}`;
 };
 
 const tie = () => {
     message.innerHTML = 'Tie! Try again.';
+};
+
+const endGame = () => {
+    if (playerPoints === 5) {
+        message.innerHTML = `Congratulations! You won the game!`;
+        disableButtons();
+    }
+
+    if (computerPoints === 5) {
+        message.innerHTML = `The computer has won the game!`;
+        disableButtons();
+    }
 };
 
 const playRound = (playerSelection, computerSelection) => {
@@ -46,15 +67,14 @@ const playRound = (playerSelection, computerSelection) => {
         (playerSelection === 'scissors' && computerSelection === 'paper')
     ) {
         playerWin();
-        playerPoints += 1;
     } else if (
         (computerSelection === 'rock' && playerSelection === 'scissors') ||
         (computerSelection === 'paper' && playerSelection === 'rock') ||
-        (computerSelection === 'scissors' && computerSelection === 'paper')
+        (computerSelection === 'scissors' && playerSelection === 'paper')
     ) {
         computerWin();
-        computerPoints += 1;
     }
+    endGame();
 };
 
 rockButton.addEventListener('click', function () {
